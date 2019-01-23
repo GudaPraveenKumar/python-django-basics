@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from testapp.models import Employee, User
+from testapp.models import Employee
 from django.http import HttpResponse
 from testapp.mixins import SerializeMixin, HttpResponseMixin
 import json
@@ -90,6 +90,28 @@ class EmployeeCRUDCBV(SerializeMixin, HttpResponseMixin, View):
         if form.errors:
             json_data = json.dumps(form.errors)
             return self.render_http_response(json_data, status=400)
+
+    def delete(self, request, *args, **kwargs):
+        data = request.body
+        valid_json = is_json(data)
+        if not valid_json:
+            json_data = json.dumps({'msg':'Please provide valid json data'})
+            return self.render_http_response(json_data, status=400)
+        pdata = json.loads(data)
+        resource_id = pdata.get('id', None)
+        if resource_id is None:
+            json_data = json.dumps({'msg':'Id is required for deleting'})
+            return self.render_http_response(json_data, status=404)
+        emp = self.get_object_by_id(resource_id)
+        if emp is None:
+            json_data = json.dumps({'msg':'Employee not found with this id'})
+            return self.render_http_response(json_data, status=404)
+        t = emp.delete()
+        status, deleted_item = t
+        print(status, deleted_item)
+        json_data = json.dumps({'msg': 'Resource Deleted Successfully'})
+        return self.render_http_response(json_data)
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')

@@ -8,10 +8,3 @@ class Employee(models.Model):
     ename = models.CharField(max_length=100)
     esal = models.FloatField()
     eaddr = models.CharField(max_length=150)
-
-
-class User(models.Model):
-    eno = models.IntegerField()
-    ename = models.CharField(max_length=100)
-    esal = models.FloatField()
-    eaddr = models.CharField(max_length=150)

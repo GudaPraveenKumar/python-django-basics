@@ -56,10 +56,10 @@ def update_resource(resource_id):
 
 def update_resource_single_api(resource_id):
     new_emp = {
-
-        'ename': 'KL Rahul',
-        'esal': 10000,
-        'eaddr': 'Chilkanagar',
+        'id':resource_id,
+        'ename': 'Charan',
+        'esal': 8500,
+        'eaddr': 'Shamirpet',
     }
     resp = requests.put(BASE_URL + ENDPOINT, data=json.dumps(new_emp))
     print(resp.status_code)
@@ -72,7 +72,17 @@ def delete_resource(resource_id):
     print(resp.json())
 
 
-update_resource_single_api(4)
+def delete_resource_single_api(resource_id):
+    data = {
+        'id': resource_id
+    }
+    resp = requests.delete(BASE_URL + ENDPOINT, data=json.dumps(data))
+    print(resp.status_code)
+    print(resp.json())
+
+
+delete_resource_single_api(4)
+# update_resource_single_api(3)
 # get_resource_single_api(2)
 # delete_resource(2)
 # update_resource(2)

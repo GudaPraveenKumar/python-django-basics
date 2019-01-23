@@ -1,5 +1,5 @@
 from django.contrib import admin
-from testapp.models import Employee, User
+from testapp.models import Employee
 
 # Register your models here.
 
@@ -7,9 +7,6 @@ from testapp.models import Employee, User
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ['id', 'eno', 'ename', 'esal', 'eaddr']
 
-class UserAdmin(admin.ModelAdmin):
-    list_display = ['id', 'eno', 'ename', 'esal', 'eaddr']
-
 
 admin.site.register(Employee, EmployeeAdmin)
-admin.site.register(User, UserAdmin)
+
