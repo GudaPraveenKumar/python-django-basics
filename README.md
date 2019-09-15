@@ -1,3 +1,3 @@
-# python-django-basics
+# Python django basics
 
 Examples of basic CRUD operations using Python Django
